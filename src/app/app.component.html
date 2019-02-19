@@ -1,0 +1,41 @@
+<app-nav></app-nav>
+
+<div *ngIf="auth.user$ | async; then authenticated else guest">
+  <!-- template will replace this div -->
+</div>
+
+<!-- User NOT logged in -->
+<ng-template #guest>
+<h3>Howdy, GUEST</h3>
+<p>Login to get started...</p>
+
+<button (click)="auth.googleSignin()">
+  <i class="fa fa-google"></i> Connect Google
+</button>
+
+
+
+</ng-template>
+<!-- User logged in -->
+<ng-template #authenticated>
+<div *ngIf="auth.user$ | async as user">
+  <h3>Howdy, {{ user.displayName }}</h3>
+  <img  [src]="user.photoURL">
+  <p>UID: {{ user.uid }}</p>
+  <p>KCUSD ID: {{ user.kcusdId }}</p>
+  <p>KCUSD position: {{ user.position }}</p>
+  <button (click)="auth.signOut()">Logout</button>
+
+  <pre>
+    <div *ngFor='let item of whatever | async | keyvalue'>
+      {{ item.key }}: {{ item.value | json }}
+    </div>
+  </pre>
+
+</div>
+</ng-template>
+
+
+
+
+<router-outlet></router-outlet>
