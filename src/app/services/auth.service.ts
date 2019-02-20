@@ -57,10 +57,20 @@ export class AuthService {
         displayName: user.displayName, 
         photoURL: user.photoURL,
         roles: {
-          viewer: true
+          viewer: staff.roles.viewer
         },
         kcusdId: staff.kcusdId,
         position: staff.position,
+        gradeLevel: staff.gradeLevel,
+        classDescription: staff.classDescription,
+        courses: staff.courses,
+        firstName: staff.firstName,
+        lastName: staff.lastName,
+        hireDate: staff.hireDate,
+        site: staff.site,
+        subjectArea: staff.subjectArea,
+        
+
       }
       userRef.set(data, { merge: true })
     }

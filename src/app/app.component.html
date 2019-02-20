@@ -23,13 +23,10 @@
   <p>UID: {{ user.uid }}</p>
   <p>KCUSD ID: {{ user.kcusdId }}</p>
   <p>KCUSD position: {{ user.position }}</p>
-  <button (click)="auth.signOut()">Logout</button>
+  <p>Subject Area: <span *ngFor="let subject of user.subjectArea">{{ subject }}, </span></p>
+  KCUSD Grade Level: <span *ngFor="let level of user.gradeLevel">{{ level }}, </span>
 
-  <pre>
-    <div *ngFor='let item of whatever | async | keyvalue'>
-      {{ item.key }}: {{ item.value | json }}
-    </div>
-  </pre>
+  <button (click)="auth.signOut()">Logout</button>
 
 </div>
 </ng-template>

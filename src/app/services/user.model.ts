@@ -1,16 +1,34 @@
 export interface User {
     uid: string;
     email: string;
+    roles: Roles;
     photoURL?: string;
     displayName?: string;
     kcusdId?: string;
     position?: string;
-    roles: Roles;
+    gradeLevel?: Array<string>;
+    site?: string;
+    subjectArea?: Array<string>;
+    firstName?: string;
+    lastName?: string;
+    hireDate?: Date;
+    classDescription?: string;
+    courses?: Array<string>;
+
   }
 
 export interface Staff {
     kcusdId?: string;
     position?: string; 
+    gradeLevel?: Array<string>;
+    roles: Roles;
+    site?: string;
+    subjectArea?: Array<string>;
+    firstName?: string;
+    lastName?: string;
+    hireDate?: Date;
+    classDescription?: string;
+    courses?: Array<string>;
 }
 
 export interface Roles {
