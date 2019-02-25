@@ -1,6 +1,5 @@
 
 <div *ngIf="auth.user$ | async; then authenticated else guest">
-  test
   <!-- template will replace this div -->
 </div>
 
@@ -28,6 +27,11 @@
   KCUSD Grade Level: <span *ngFor="let level of user.gradeLevel">{{ level }}, </span>
 
   <button (click)="auth.signOut()">Logout</button>
+  <ul>
+    <li *ngFor="let item of items | async">
+      {{ item }}
+    </li>
+  </ul>
 
 </div>
 </ng-template>

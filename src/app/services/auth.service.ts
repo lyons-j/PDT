@@ -13,7 +13,7 @@ import { User, Staff } from './user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  user$: Observable<User>;
+  user$: Observable<User>; 
 
   constructor(
       private afAuth: AngularFireAuth,
@@ -75,6 +75,8 @@ export class AuthService {
       userRef.set(data, { merge: true })
     }
     )
+
+    
     return
   }
 
