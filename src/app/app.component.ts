@@ -3,8 +3,20 @@ import { AuthService } from './services/auth.service';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-export interface Item { name: string; }
+export interface Course {
+  courseId: string;
+  courseTitle: string;
+  courseSubTitle?:string;
+  courseLevel?:string;
+  catagory?:string;
+  catagoryAbbreviation?:string;
+  courseDescription?:string;
+  badgeImageLink?:string;
+  prerequisites?:string;
+  courseMaterials?:string;
+}
 
 @Component({
   selector: 'app-root',
@@ -13,21 +25,29 @@ export interface Item { name: string; }
 })
 export class AppComponent implements OnInit{
 
-  private itemsCollection: AngularFirestoreCollection<Item>;
-  items: Observable<Item[]>;
+  private courseCollection: AngularFirestoreCollection<Course>;
+  courses: Observable<Course[]>;
+  snapshot: any;
 
-  constructor(public auth: AuthService,
-    private afs: AngularFirestore
-    ){ 
+  constructor(public auth: AuthService, private afs: AngularFirestore){ 
    
   }
 
   ngOnInit(){
-    this.itemsCollection = this.afs.collection<Item>('staff');
-    this.items = this.itemsCollection.snapshotChanges();
-    this.items.subscribe(values =>{
-      console.log(values)
-    })
+    this.courseCollection = this.afs.collection('courses');
+    this.courses = this.courseCollection.valueChanges();
+    this.snapshot = this.courseCollection.snapshotChanges().subscribe(
+      data => {console.log(data)}
+    );
+    
+    /*
+    .pipe(
+        
+        map(arr => {
+        console.log(arr)
+        arr.map(snap => snap.payload.doc.data())
+      })
+    )*/
   }
   title = 'PDT';
 }

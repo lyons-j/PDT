@@ -25,13 +25,14 @@
   <p>KCUSD position: {{ user.position }}</p>
   <p>Subject Area: <span *ngFor="let subject of user.subjectArea">{{ subject }}, </span></p>
   KCUSD Grade Level: <span *ngFor="let level of user.gradeLevel">{{ level }}, </span>
-
-  <button (click)="auth.signOut()">Logout</button>
-  <ul>
-    <li *ngFor="let item of items | async">
-      {{ item }}
+    <ul>
+    <li *ngFor="let course of courses | async">
+      {{ course | json }}
     </li>
   </ul>
+
+  <button (click)="auth.signOut()">Logout</button>
+
 
 </div>
 </ng-template>
