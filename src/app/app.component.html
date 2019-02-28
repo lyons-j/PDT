@@ -1,3 +1,4 @@
+<top-nav></top-nav>
 
 <div *ngIf="auth.user$ | async; then authenticated else guest">
   <!-- template will replace this div -->
@@ -5,13 +6,7 @@
 
 <!-- User NOT logged in -->
 <ng-template #guest>
-  <mat-card class="intro-card">
-    <h3>Welcome to the KCUSD Professional Learning Portal.</h3>
-    <p>Login to get started...</p>
-    <button mat-raised-button color="primary" (click)="auth.googleSignin()">
-        <img width="20px" alt="Google &quot;G&quot; Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-      Signin with Google</button> 
-  </mat-card>
+  <app-login></app-login>
 </ng-template>
 
 
@@ -27,8 +22,7 @@
   KCUSD Grade Level: <span *ngFor="let level of user.gradeLevel">{{ level }}, </span>
 
 
-  <button (click)="auth.signOut()">Logout</button>
-  <button mat-raised-button color="primary">Click me!</button>
+  <button mat-raised-button color="primary" (click)="auth.signOut()">Sign Out</button>
 
 </div>
 </ng-template>
