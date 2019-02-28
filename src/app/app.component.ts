@@ -3,7 +3,6 @@ import { AuthService } from './services/auth.service';
 
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 export interface Course {
   courseId: string;
