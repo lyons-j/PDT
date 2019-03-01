@@ -13,14 +13,14 @@ import { User, Staff } from './user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  user$: Observable<User>; 
+  user$: Observable<User>;
+  authVerificationCheck: boolean;
 
   constructor(
       private afAuth: AngularFireAuth,
       private afs: AngularFirestore,
       private router: Router
   ) {
-
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {

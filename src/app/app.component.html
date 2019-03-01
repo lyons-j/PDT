@@ -1,20 +1,24 @@
 <top-nav></top-nav>
 
-<div *ngIf="auth.user$ | async; then authenticated else guest">
-  <!-- template will replace this div -->
+<div *ngIf="auth.user$ | async; then authenticated else guest" [hidden]="auth.authVerificationCheck">
+ <!--  template will replace this div -->
 </div>
 
 <!-- User NOT logged in -->
 <ng-template #guest>
-  <app-login></app-login>
+
+  <app-login ></app-login>
 </ng-template>
 
 
 <!-- User logged in -->
 <ng-template #authenticated>
+    {{auth.authVerificationCheck}}
 <div *ngIf="auth.user$ | async as user">
   <h3>Hello, {{ user.displayName }}</h3>
-  <img  [src]="user.photoURL" width="200" height="200">
+  <div class="image-cropper">
+    <img class="profile-image" [src]="user.photoURL" width="200" height="200">
+  </div>
   <p>UID: {{ user.uid }}</p>
   <p>KCUSD ID: {{ user.kcusdId }}</p>
   <p>KCUSD position: {{ user.position }}</p>

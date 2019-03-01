@@ -38,15 +38,6 @@ export class AppComponent implements OnInit{
     this.snapshot = this.courseCollection.snapshotChanges().subscribe(
       data => {console.log(data)}
     );
-    
-    /*
-    .pipe(
-        
-        map(arr => {
-        console.log(arr)
-        arr.map(snap => snap.payload.doc.data())
-      })
-    )*/
   }
   title = 'PDT';
 }
