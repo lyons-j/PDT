@@ -46,8 +46,10 @@ export class AuthService {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
     const staffRef: AngularFirestoreDocument<Staff> = this.afs.doc(`staff/${user.email}`);
+    const timestamp: Date = new Date;
 
     const staff$ = staffRef.valueChanges();
+
     staff$.subscribe( staff =>{
 
 
@@ -69,9 +71,13 @@ export class AuthService {
         hireDate: staff.hireDate,
         site: staff.site,
         subjectArea: staff.subjectArea,
+        lastLogin: timestamp,
         
 
       }
+
+
+
       userRef.set(data, { merge: true })
     }
     )

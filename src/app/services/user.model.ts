@@ -1,3 +1,4 @@
+
 export interface User {
     uid: string;
     email: string;
@@ -14,6 +15,7 @@ export interface User {
     hireDate?: Date;
     classDescription?: string;
     courses?: Array<string>;
+    lastLogin?: Date;
 
   }
 
