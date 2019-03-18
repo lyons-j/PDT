@@ -17,9 +17,12 @@ import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { LoginComponent } from './components/login/login.component';
+import { DropZoneDirective } from './drop-zone.directive';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { FileSizePipe } from './file-size.pipe';
 
 @NgModule({
-  declarations: [AppComponent, TopNavComponent, LoginComponent],
+  declarations: [AppComponent, TopNavComponent, LoginComponent, DropZoneDirective, FileUploadComponent, FileSizePipe ],
   imports: [
     BrowserModule,
     AppRoutingModule,
