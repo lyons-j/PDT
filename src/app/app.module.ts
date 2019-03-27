@@ -20,6 +20,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { FileSizePipe } from './file-size.pipe';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent, TopNavComponent, LoginComponent, DropZoneDirective, FileUploadComponent, FileSizePipe ],
@@ -36,7 +37,7 @@ import { FileSizePipe } from './file-size.pipe';
     AngularFireStorageModule, // storage
     BrowserAnimationsModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule
   ],
-  providers: [ {provide: FirestoreSettingsToken, useValue: {} }],
+  providers: [ {provide: FirestoreSettingsToken, useValue: {} }, AuthService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
