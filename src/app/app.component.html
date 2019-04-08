@@ -1,15 +1,14 @@
 <top-nav></top-nav>
 
-<div *ngIf="!(auth.user$ | async)">Loading Data...</div>
-<div *ngIf="auth.user$ | async; then authenticated else guest">
- <!--  template will replace this div -->
-</div>
+<div *ngIf="auth.authVerificationCheck; then authenticated else guest">
+  <!--  template will replace this div -->
+ </div>
 
-<!-- User NOT logged in -->
-<ng-template #guest>
+ <ng-template #guest>
+   
+    <app-login ></app-login>
+    </ng-template>
 
-  <app-login ></app-login>
-</ng-template>
 
 
 <!-- User logged in -->
@@ -19,15 +18,11 @@
   <div class="image-cropper">
     <img class="profile-image" [src]="user.photoURL" width="200" height="200">
   </div>
-  <p>UID: {{ user.uid }}</p>
-  <p>KCUSD ID: {{ user.kcusdId }}</p>
-  <p>KCUSD position: {{ user.position }}</p>
-  <p>Subject Area: <span *ngFor="let subject of user.subjectArea">{{ subject }}, </span></p>
-  KCUSD Grade Level: <span *ngFor="let level of user.gradeLevel">{{ level }}, </span>
 
-
+  <button mat-button color="primary" routerLink="/upload">Upload files</button>
+  <button mat-button color="primary" routerLink="/users">Users</button>
+  <button mat-button color="primary" routerLink="/courses">Courses</button>
   <button mat-raised-button color="primary" (click)="auth.signOut()">Sign Out</button>
-  <file-upload></file-upload>
 </div>
 </ng-template>
 
@@ -35,3 +30,4 @@
 
 
 <router-outlet></router-outlet>
+<!-- Routed views go here -->

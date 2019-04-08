@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router'
 import { environment } from '../environments/environment';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routingComponent } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire';
@@ -23,7 +23,7 @@ import { FileSizePipe } from './file-size.pipe';
 import { AuthService } from './services/auth.service';
 
 @NgModule({
-  declarations: [AppComponent, TopNavComponent, LoginComponent, DropZoneDirective, FileUploadComponent, FileSizePipe ],
+  declarations: [AppComponent, routingComponent, TopNavComponent, LoginComponent, DropZoneDirective, FileUploadComponent, FileSizePipe],
   imports: [
     BrowserModule,
     AppRoutingModule,

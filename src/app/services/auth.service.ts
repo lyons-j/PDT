@@ -14,7 +14,7 @@ import { User, Staff } from './user.model';
 export class AuthService {
 
   user$: Observable<User>;
-  authVerificationCheck: boolean;
+  authVerificationCheck: boolean = false;
 
   constructor(
       private afAuth: AngularFireAuth,
@@ -26,15 +26,25 @@ export class AuthService {
       switchMap(user => {
           // Logged in
         if (user) {
+          this.updateAuthVerificationCheck(true)
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           
         } else {
           // Logged out
+          this.updateAuthVerificationCheck(false)
           return of(null);
         }
       })
     )  
   }
+  private updateAuthVerificationCheck(value){
+    if(value){
+      this.authVerificationCheck = true;
+    }else{
+      this.authVerificationCheck = false;
+    }
+  }
+
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
@@ -89,6 +99,7 @@ export class AuthService {
 
   async signOut() {
     await this.afAuth.auth.signOut();
+    this.authVerificationCheck = false;
     return this.router.navigate(['/']);
   }
 
