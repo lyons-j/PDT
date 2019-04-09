@@ -1,30 +1,30 @@
 <top-nav></top-nav>
 
-<div *ngIf="auth.authVerificationCheck; then authenticated else guest">
-  <!--  template will replace this div -->
- </div>
-
- <ng-template #guest>
-   
-    <app-login ></app-login>
-    </ng-template>
-
-
+<app-loading *ngIf="auth.showLoader"></app-loading>
 
 <!-- User logged in -->
-<ng-template #authenticated>
-<div *ngIf="auth.user$ | async as user">
-  <h3>Hello, {{ user.displayName }}</h3>
-  <div class="image-cropper">
-    <img class="profile-image" [src]="user.photoURL" width="200" height="200">
+<div *ngIf="auth.user$">
+  
+  <div *ngIf="auth.user$ | async as user">
+    <h3>Hello, {{ user.displayName }}</h3>
+    <div class="image-cropper">
+      <img class="profile-image" [src]="user.photoURL" width="200" height="200">
+    </div>
+
+    <button mat-button color="primary" routerLink="/upload">Upload files</button>
+    <button mat-button color="primary" routerLink="/users">Users</button>
+    <button mat-button color="primary" routerLink="/courses">Courses</button>
+    <button mat-raised-button color="primary" (click)="auth.signOut()">Sign Out</button>
   </div>
 
-  <button mat-button color="primary" routerLink="/upload">Upload files</button>
-  <button mat-button color="primary" routerLink="/users">Users</button>
-  <button mat-button color="primary" routerLink="/courses">Courses</button>
-  <button mat-raised-button color="primary" (click)="auth.signOut()">Sign Out</button>
-</div>
-</ng-template>
+  <div *ngIf="auth.showLogin">
+    <app-login ></app-login>
+  </div>
+
+
+
+
+
 
 
 

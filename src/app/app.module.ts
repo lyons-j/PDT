@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule, routingComponent } from './app-routing.module';
@@ -21,23 +21,31 @@ import { DropZoneDirective } from './drop-zone.directive';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { FileSizePipe } from './file-size.pipe';
 import { AuthService } from './services/auth.service';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
-  declarations: [AppComponent, routingComponent, TopNavComponent, LoginComponent, DropZoneDirective, FileUploadComponent, FileSizePipe],
+  declarations: [
+    AppComponent,
+    routingComponent,
+    TopNavComponent,
+    LoginComponent,
+    DropZoneDirective,
+    FileUploadComponent,
+    FileSizePipe,
+    LoadingComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    RouterModule.forRoot([
-
-    ]),
+    RouterModule.forRoot([ ]),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
     BrowserAnimationsModule, LayoutModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule
   ],
-  providers: [ {provide: FirestoreSettingsToken, useValue: {} }, AuthService],
+  providers: [AuthService, {provide: FirestoreSettingsToken, useValue: {} }],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

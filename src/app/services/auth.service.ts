@@ -9,41 +9,39 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User, Staff } from './user.model';
 
-
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
   user$: Observable<User>;
-  authVerificationCheck: boolean = false;
+
+  showLoader: boolean = true;
+  showLogin: boolean = false;
 
   constructor(
       private afAuth: AngularFireAuth,
       private afs: AngularFirestore,
       private router: Router
   ) {
+
     // Get the auth state, then fetch the Firestore user document or return null
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
           // Logged in
         if (user) {
-          this.updateAuthVerificationCheck(true)
+          this.showLogin = false;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
-          
         } else {
           // Logged out
-          this.updateAuthVerificationCheck(false)
+          this.showLogin = true;
           return of(null);
         }
       })
-    )  
+    );
+    this.user$.subscribe(() => this.showLoader = false);
+
+
   }
-  private updateAuthVerificationCheck(value){
-    if(value){
-      this.authVerificationCheck = true;
-    }else{
-      this.authVerificationCheck = false;
-    }
-  }
+
 
 
   async googleSignin() {
@@ -60,13 +58,12 @@ export class AuthService {
 
     const staff$ = staffRef.valueChanges();
 
-    staff$.subscribe( staff =>{
+    staff$.subscribe( staff => {
 
-
-      const data: User = { 
-        uid: user.uid, 
-        email: user.email, 
-        displayName: user.displayName, 
+      const data: User = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
         photoURL: user.photoURL,
         roles: {
           viewer: staff.roles.viewer
@@ -82,55 +79,46 @@ export class AuthService {
         site: staff.site,
         subjectArea: staff.subjectArea,
         lastLogin: timestamp,
-        
+      };
 
-      }
+      userRef.set(data, { merge: true } );
+    });
 
 
-
-      userRef.set(data, { merge: true })
-    }
-    )
-
-    
-    return
+    return;
   }
 
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    this.authVerificationCheck = false;
     return this.router.navigate(['/']);
   }
 
 
 
   canRead(user: User): boolean {
-    const allowed = [ 'viewer', 'participant', 'presenter', 'analyst', 'admin' ]
-    return this.checkAuthorization(user, allowed)
+    const allowed = [ 'viewer', 'participant', 'presenter', 'analyst', 'admin' ];
+    return this.checkAuthorization(user, allowed);
   }
 
   canEdit(user: User): boolean {
-    const allowed = [ 'participant', 'presenter', 'analyst', 'admin' ]
-    return this.checkAuthorization(user, allowed)
-  }
-  
-  candDelete(user: User): boolean {
-    const allowed = [ 'admin' ]
-    return this.checkAuthorization(user, allowed)
+    const allowed = [ 'participant', 'presenter', 'analyst', 'admin' ];
+    return this.checkAuthorization(user, allowed);
   }
 
-  private checkAuthorization(user: User, allowedRoles: string[]): boolean{
-    if(!user) return false
-    for (const role of allowedRoles){
-      if( user.roles[role] ){
-        return true
+  candDelete(user: User): boolean {
+    const allowed = [ 'admin' ];
+    return this.checkAuthorization(user, allowed);
+  }
+
+  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+    if (!user) { return false; }
+    for (const role of allowedRoles) {
+      if ( user.roles[role] ) {
+        return true;
       }
     }
-    return false
+    return false;
   }
-
-
- 
 
 }
