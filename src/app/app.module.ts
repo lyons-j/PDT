@@ -22,6 +22,11 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { FileSizePipe } from './file-size.pipe';
 import { AuthService } from './services/auth.service';
 import { LoadingComponent } from './components/loading/loading.component';
+import { CoursesListComponent } from './components/courses/courses-list/courses-list.component';
+import { CoursesDetailComponent } from './components/courses/courses-detail/courses-detail.component';
+import { UsersListComponent } from './components/users/users-list/users-list.component';
+import { UsersDetailComponent } from './components/users/users-detail/users-detail.component';
+import { UsersFormComponent } from './components/users/users-form/users-form.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,11 @@ import { LoadingComponent } from './components/loading/loading.component';
     FileUploadComponent,
     FileSizePipe,
     LoadingComponent,
+    CoursesListComponent,
+    CoursesDetailComponent,
+    UsersListComponent,
+    UsersDetailComponent,
+    UsersFormComponent,
   ],
   imports: [
     BrowserModule,

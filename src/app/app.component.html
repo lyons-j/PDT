@@ -17,6 +17,8 @@
     <button mat-raised-button color="primary" (click)="auth.signOut()">Sign Out</button>
   </div>
 
+
+<!-- User NOT logged in -->
   <div *ngIf="auth.showLogin">
     <app-login ></app-login>
   </div>

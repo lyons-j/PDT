@@ -16,7 +16,6 @@ export interface User {
     classDescription?: string;
     courses?: Array<string>;
     lastLogin?: Date;
-
   }
 
 export interface Staff {
