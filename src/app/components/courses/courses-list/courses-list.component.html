@@ -1,10 +1,7 @@
 <p>
   courses-list works!
 </p>
-<div *ngFor="let course of coursesService.courses$ | async">
-{{course.courseTitle | async}}
 
-</div>
 
 
   <table mat-table [dataSource]="coursesService.courses$" class="mat-elevation-z8">
